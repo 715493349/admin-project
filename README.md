@@ -11,9 +11,6 @@ English | [简体中文](./README-zh.md)
 # clone the project
 git clone https://github.com/715493349/admin-project.git
 
-# enter the project directory
-cd vue-admin-template
-
 # install dependency
 npm install
 
