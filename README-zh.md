@@ -8,9 +8,6 @@
 # 克隆项目
 git clone https://github.com/715493349/admin-project.git
 
-# 进入项目目录
-cd vue-admin-project
-
 # 安装依赖
 npm install
 
@@ -20,7 +17,6 @@ npm install --registry=https://registry.npm.taobao.org
 # 启动服务
 npm run dev
 ```
-
 
 ## 发布
 
