@@ -1,12 +1,12 @@
 # vue-admin-project
 
-> 这是一个极简的 vue admin 管理后台。
+> 一个 vue 管理系统。
 
 ## Build Setup
 
 ```bash
 # 克隆项目
-git clone https://github.com/PanJiaChen/vue-admin-template.git
+git clone https://github.com/715493349/admin-project.git
 
 # 进入项目目录
 cd vue-admin-project
