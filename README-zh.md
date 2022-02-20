@@ -1,6 +1,6 @@
 # vue-admin-project
 
-> 这是一个极简的 vue admin 管理后台。它只包含了 Element UI & axios & iconfont & permission control & lint
+> 这是一个极简的 vue admin 管理后台。
 
 ## Build Setup
 
