@@ -57,7 +57,29 @@ export const constantRoutes = [{
     },
 
     {
-        path: '/',
+        path: '/permission',
+        component: Layout,
+        name: 'Permission',
+        meta: { title: '权限管理', icon: 'el-icon-lock' },
+        children: [{
+                path: 'kp',
+                name: 'Kp',
+                component: () =>
+                    import ('@/views/permissions/Kp'),
+                meta: { title: 'KP管理' }
+            },
+            {
+                path: 'kk',
+                name: 'Kk',
+                component: () =>
+                    import ('@/views/permissions/kk'),
+                meta: { title: 'Kk管理' }
+            }
+        ]
+    },
+
+    {
+        path: '/product',
         component: Layout,
         name: 'Product',
         meta: { title: '商品管理', icon: 'el-icon-goods' },
@@ -90,6 +112,18 @@ export const constantRoutes = [{
                 meta: { title: 'Sku管理', }
             },
         ]
+    },
+
+    {
+        path: '',
+        component: Layout,
+        children: [{
+            path: 'text',
+            name: 'Text',
+            component: () =>
+                import ('@/views/text/index'),
+            meta: { title: '测试管理', icon: 'el-icon-setting' }
+        }]
     },
 
     // 404 page must be placed at the end !!!

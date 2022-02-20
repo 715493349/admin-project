@@ -4,7 +4,7 @@
       <!-- 给组件绑定自定义事件 -->
       <CategorySelect
         @getCategoryId="getCategoryId"
-        :show="!show"
+        :show="scene != 0"
       ></CategorySelect>
     </el-card>
     <el-card>
@@ -90,7 +90,7 @@ export default {
       category1Id: "",
       category2Id: "",
       category3Id: "",
-      show: true,
+      // show: true,
       page: 1, //第几页
       limit: 3, //每页展示多少数据
       records: [], //列表数据
@@ -153,6 +153,8 @@ export default {
       // console.log(scene);
       // 切换场景
       this.scene = scene
+      // 子组件切换后通知父组件更新数据,停留在当前修改页
+      this.getSpuList(this.page)
     }
   },
 };

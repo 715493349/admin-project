@@ -14,4 +14,15 @@ export const reqSpuImageList = (spuId) => request({ url: `/admin/product/spuImag
 
 // 获取品牌全部销售属性   GET    /admin/product/baseSaleAttrList
 export const reqBaseSaleAttrList = () => request({ url: '/admin/product/baseSaleAttrList', method: 'get' })
+
+// 修改spu/添加spu，携带参数大致一样，区别：携带参数是否有id
+export const reqAddOrUpdateSpu = (spuInfo) => {
+        // 携带参数有id---修改spu
+        if (spuInfo.id) {
+            return request({ url: '/admin/product/updateSpuInfo', method: 'post', data: spuInfo })
+        } else {
+            // 携带参数无id---修改spu
+            return request({ url: '/admin/product/saveSpuInfo', method: 'post', data: spuInfo })
+        }
+    }
     // 淡定
