@@ -62,18 +62,18 @@ export const constantRoutes = [{
         name: 'Permission',
         meta: { title: '权限管理', icon: 'el-icon-lock' },
         children: [{
-                path: 'kp',
+                path: 'userManage',
                 name: 'Kp',
                 component: () =>
                     import ('@/views/permissions/Kp'),
-                meta: { title: 'KP管理' }
+                meta: { title: '用户管理' }
             },
             {
-                path: 'kk',
+                path: 'roleManage',
                 name: 'Kk',
                 component: () =>
                     import ('@/views/permissions/kk'),
-                meta: { title: 'Kk管理' }
+                meta: { title: '角色管理' }
             }
         ]
     },
