@@ -1,7 +1,7 @@
 <!--
  * @Author: luoheng
  * @Date: 2022-02-28 00:44:32
- * @LastEditTime: 2022-02-28 03:23:30
+ * @LastEditTime: 2022-02-28 13:25:01
  * @LastEditors: luoheng
  * @Description: 
  * God help those who help themselves
@@ -17,10 +17,10 @@
         </el-tabs>
         <!-- 右侧内容· -->
         <div class="right">
-          <span>今日</span>
-          <span>本周</span>
-          <span>本月</span>
-          <span>本年</span>
+          <span @click="setDay">今日</span>
+          <span @click="setWeek">本周</span>
+          <span @click="setMonth">本月</span>
+          <span @click="setYear">本年</span>
           <el-date-picker
             v-model="value"
             class="data"
@@ -29,6 +29,7 @@
             range-separator="-"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
+            value-format="yyyy-MM-dd"
           >
           </el-date-picker>
         </div>
@@ -42,47 +43,47 @@
           <!-- 右边排序信息 -->
           <el-col :span="6" class="right">
             <div class="rg">
-              <h3>门店销售额排名</h3>
+              <h3>门店{{ title }}排名</h3>
               <ul>
                 <li>
                   <span class="rindex">1</span>
                   <span>肯德基</span>
-                  <span class="rvalue">12313</span>
+                  <span class="rvalue">452452</span>
                 </li>
                 <li>
                   <span class="rindex">2</span>
-                  <span>肯德基</span>
-                  <span class="rvalue">12313</span>
+                  <span>德克士</span>
+                  <span class="rvalue">4254245</span>
                 </li>
                 <li>
                   <span class="rindex">3</span>
-                  <span>肯德基</span>
-                  <span class="rvalue">12313</span>
+                  <span>鸿星尔克</span>
+                  <span class="rvalue">182252</span>
                 </li>
                 <li class="rr">
                   <span>4</span>
-                  <span class="rrg">肯德基</span>
+                  <span class="rrg">耐克</span>
                   <span class="rvalue">12313</span>
                 </li>
                 <li class="rr">
                   <span>5</span>
-                  <span class="rrg">肯德基</span>
-                  <span class="rvalue">12313</span>
+                  <span class="rrg">香奈儿</span>
+                  <span class="rvalue">86457</span>
                 </li>
                 <li class="rr">
                   <span>6</span>
-                  <span class="rrg">肯德基</span>
-                  <span class="rvalue">12313</span>
+                  <span class="rrg">巴黎世家</span>
+                  <span class="rvalue">42354</span>
                 </li>
                 <li class="rr">
                   <span>7</span>
-                  <span class="rrg">肯德基</span>
-                  <span class="rvalue">12313</span>
+                  <span class="rrg">迪奥</span>
+                  <span class="rvalue">35844</span>
                 </li>
                 <li class="rr">
                   <span>8</span>
-                  <span class="rrg">肯德基</span>
-                  <span class="rvalue">12313</span>
+                  <span class="rrg">奥尔良烤翅</span>
+                  <span class="rvalue">24586</span>
                 </li>
               </ul>
             </div>
@@ -95,12 +96,15 @@
 
 <script>
 import * as echarts from "echarts";
+import dayjs from "dayjs";
 export default {
   name: "",
   data() {
     return {
       activeName: "sale",
-      value:''
+      value: [],
+      // 把echarts实例挂载到组件实例上
+      mycharts: null,
     };
   },
   mounted() {
@@ -160,11 +164,49 @@ export default {
       ],
     });
   },
+  methods: {
+    // 今天
+    setDay() {
+      // const day = '1995-10-16'
+      const day = dayjs().format("YYYY-MM-DD");
+      this.value = [day, day];
+    },
+    // 本周
+    setWeek() {
+      const start = dayjs().day(1).format("YYYY-MM-DD");
+      const end = dayjs().day(7).format("YYYY-MM-DD");
+      this.value = [start, end];
+    },
+    // 本月
+    setMonth() {
+      const start = dayjs().startOf("month").format("YYYY-MM-DD");
+      const end = dayjs().endOf("month").format("YYYY-MM-DD");
+      this.value = [start, end];
+    },
+    // 本年
+    setYear() {
+      const start = dayjs().startOf("year").format("YYYY-MM-DD");
+      const end = dayjs().endOf("year").format("YYYY-MM-DD");
+      this.value = [start, end];
+    },
+  },
   computed: {
-    title(){
-      
-    }
-  }
+    title() {
+      return this.activeName == "sale" ? "销售额" : "访问量";
+    },
+  },
+  // 监听属性
+  watch: {
+    title() {
+      // console.log(123);
+      // 重新修改图表配置数据
+      this.myecharts.setOption({
+        title: {
+          text: this.title,
+        },
+      });
+    },
+  },
 };
 </script>
 
@@ -179,6 +221,7 @@ export default {
 }
 .right {
   position: absolute;
+  cursor:pointer;
   right: 0;
 }
 .data {
