@@ -118,8 +118,8 @@ export const constantRoutes = [{
         path: '',
         component: Layout,
         children: [{
-            path: 'text',
-            name: 'Text',
+            path: 'text1',
+            name: 'Text1',
             component: () =>
                 import ('@/views/text/index'),
             meta: { title: '测试管理', icon: 'el-icon-setting' }

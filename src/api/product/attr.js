@@ -1,3 +1,11 @@
+/*
+ * @Author: luo_h603
+ * @Date: 2022-02-15 15:26:27
+ * @LastEditTime: 2022-03-24 00:26:24
+ * @LastEditors: luo_h603
+ * @Description: 
+ * God help those who help themselves
+ */
 import request from '@/utils/request'
 
 // 获取一级分类模块      GET /admin/product/get/category1/{id}   
@@ -13,4 +21,12 @@ export const reqCategory3List = (category2Id) => request({ url: `/admin/product/
 export const reqAttrList = (category1Id, category2Id, category3Id) => request({ url: `/admin/product/attrInfoList/${category1Id}/${category2Id}/${category3Id}`, method: 'GET' })
 
 // 添加属性接口          POST   /admin/product/saveAttrInfo
-export const reqAddOrUpdateAttr = (data) => request({ url: '/admin/product/saveAttrInfo', method: 'POST', data })
+// export const reqAddOrUpdateAttr = (data) => request({ url: '/admin/product/saveAttrInfo', method: 'POST', data })
+
+export function reqAddOrUpdateAttr(data) {
+    return request({
+        url: '/admin/product/saveAttrInfo',
+        method: 'POST',
+        data
+    })
+}

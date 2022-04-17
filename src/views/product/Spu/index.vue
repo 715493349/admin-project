@@ -145,7 +145,7 @@ export default {
       this.scene = 1
       // 获取子组件spuform子组件    在父组件通过$ref获取组件
       // console.log(this.$refs.spu);
-      // console.log(row);
+      // console.log('22',row);
       this.$refs.spu.initSpuData(row)
     },
     // 自定义事件回调 (spuform)

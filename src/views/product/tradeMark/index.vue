@@ -37,32 +37,34 @@
         width="width"
         align="center"
       >
-        <template slot-scope="{ row, $index }">
-          <!-- <img :src="row.logoUrl" alt="" /> -->
-          <el-image
-            style="width: 80px; height: 80px"
-            :src="row.logoUrl"
-            :preview-src-list="srcList"
-          >
-          </el-image>
-          <!-- <i class="el-icon-warning" type="danger"></i> -->
-        </template>
+        <!-- <template slot-scope="{ row, $index }"> -->
+        <!-- <img :src="row.logoUrl" alt="" /> -->
+        <!-- <el-image -->
+        <!-- style="width: 80px; height: 80px" -->
+        <!-- :src="row.logoUrl" -->
+        <!-- :preview-src-list="srcList" -->
+        <!-- > -->
+        <!-- </el-image> -->
+        <!-- <i class="el-icon-warning" type="danger"></i> -->
+        <!-- </template> -->
+        💯
       </el-table-column>
       <el-table-column prop="prop" label="操作" width="width" align="center">
-        <template slot-scope="{ row, $index }">
+        <template slot-scope="row">
           <el-button
             icon="el-icon-edit"
-            type="warning"
+            type="primary"
+            plain
             size="mini"
             @click="updateTradeMark(row)"
             >修改</el-button
           >
           <el-button
             type="danger"
-            icon="el-icon-delete"
+            plain
             size="mini"
             @click="delelteTradeMark(row)"
-            >删除</el-button
+            ><i class="el-icon-delete"></i> 删除</el-button
           >
         </template>
       </el-table-column>
@@ -78,12 +80,12 @@
          pager-count：按钮数量，9页中间7页两边各1页
          -->
     <el-pagination
-      :current-page="1"
+      :current-page="page"
       :page-sizes="[3, 5, 10]"
       :page-size="limit"
       :pager-count="7"
       layout="prev, pager, next, jumper, ->,sizes, total"
-      :total="100"
+      :total="total"
       style="margin-top: 20px; textalign: center"
       align="center"
     >
@@ -126,7 +128,7 @@
             <img v-if="tmForm.logoUrl" :src="tmForm.logoUrl" class="avatar" />
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             <div slot="tip" class="el-upload__tip">
-              只能上传jpg/png文件，且不超过500kb
+              只能上传png文件，且不超过500kb
             </div>
           </el-upload>
         </el-form-item>
@@ -171,7 +173,7 @@ export default {
       rules: {
         // 品牌名称规则
         tmName: [
-          { required: true, message: "请输入品牌名称", trigger: "blur" },
+          { required: false, message: "请输入品牌名称", trigger: "blur" },
           {
             min: 3,
             max: 5,
@@ -236,18 +238,19 @@ export default {
       // 上传成功后服务器返回数据
       // console.log(file);
     },
+    // 文件上传之前
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
+      const isJPG = file.type === "image/png";
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+        this.$message.error("上传头像图片只能是 png 格式!");
       }
       if (!isLt2M) {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }
       return isJPG && isLt2M;
     },
-    // 点击输入框取消事件
+    // 点击对话框取消事件
     cancelData() {
       // 取消输入框显示
       this.dialogFormVisible = false;
@@ -257,14 +260,14 @@ export default {
     // 添加按钮（添加商品 | 修改商品）
     addOrUpdateTradeMark() {
       this.$refs.ruleForm.validate(async (success) => {
-        // console.log(success);
+        console.log(success);
         if (success) {
           this.dialogFormVisible = false;
           // 发请求 （添加商品 | 修改商品）
           let result = await this.$API.trademark.reqAddOrUpdateTradeMark(
             this.tmForm
           );
-          console.log(result);
+          // console.log(result);
           if (result.code == 200) {
             this.$message({
               type: "success",
@@ -299,7 +302,7 @@ export default {
               message: "删除成功!",
             });
             // 在次后去品牌列表数据   判断数据元素个数
-            this.getPageList(this.list.length > 1 ? this.pages : this.page - 1)
+            this.getPageList(this.list.length > 1 ? this.pages : this.page - 1);
           }
         })
         .catch(() => {

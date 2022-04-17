@@ -1,7 +1,25 @@
+/*
+ * @Author: luo_h603
+ * @Date: 2022-02-15 15:26:27
+ * @LastEditTime: 2022-03-24 00:45:31
+ * @LastEditors: luo_h603
+ * @Description: 
+ * God help those who help themselves
+ */
 import request from '@/utils/request'
 
 // 获取spu列表数据        GET   /admin/product/{page}/{limit}   参数：page  limit  category3Id
-export const reqSpuList = (page, limit, category3Id) => request({ url: `/admin/product/${page}/${limit}`, method: 'get', params: { category3Id } })
+// export const reqSpuList = (page, limit, category3Id) => request({ url: `/admin/product/${page}/${limit}`, method: 'get', params: { category3Id } })
+
+export function reqSpuList(page, limit, category3Id) {
+    return request({
+        url: `/admin/product/${page}/${limit}`,
+        method: 'get',
+        params: {
+            category3Id
+        }
+    })
+}
 
 // 获取spu信息           GET    /admin/product/getSpuById/{spuId}
 export const reqSpu = (spuId) => request({ url: `/admin/product/getSpuById/${spuId}`, method: 'get' })

@@ -127,6 +127,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="addOrUpdateSpu">保存</el-button>
+        <!-- changeScene自定义事件 -->
         <el-button @click="$emit('changeScene', 0)">取消</el-button>
       </el-form-item>
     </el-form>
@@ -188,7 +189,7 @@ export default {
     // 删除照片回调  file:删除的当前文件文件，fileList:剩余的当前文文件
     handleRemove(file, fileList) {
       // console.log(file, fileList);
-      // 收集照片数据
+      // 收集照片数据 收集剩余的
       this.spuImageList = fileList;
     },
     // 预览图片回调
